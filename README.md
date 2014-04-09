@@ -1,4 +1,4 @@
-This is Finance
+Finance
 =======
 
 Buy and sell stocks at market price while comparing yourself to your competitors.
