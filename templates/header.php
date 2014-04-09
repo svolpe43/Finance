@@ -19,17 +19,17 @@
         <script src="/js/scripts.js"></script>
     </head>
     
-    <body style>
-    <div class = "navbar navbar-inverse">
-    <a class="navbar-brand" href="index.php">Finance</a>
-    </div>
-        <div class="container">
-            <div id="top">
-                <ul class="nav nav-tabs">
-                      <li class="active"><a href="index.php">Home</a></li>
-                      <li><a href="history.php">History</a></li>
-                      <li><a href="leader.php">Leaderboard</a></li>
-                      <li><a href="talk.php">Comments</a></li>
-                </ul>
+    <body>
+            <div class = "navbar navbar-inverse">
+                <a class="navbar-brand" href="index.php">Finance</a>
             </div>
-            <div id="middle">
+            <div class="container">
+                    <div id="top">
+                        <ul class="nav nav-tabs">
+                              <li class="active"><a href="index.php">Home</a></li>
+                              <li><a href="history.php">History</a></li>
+                              <li><a href="leader.php">Leaderboard</a></li>
+                              <li><a href="talk.php">Comments</a></li>
+                        </ul>
+                    </div>
+                    <div id="middle">

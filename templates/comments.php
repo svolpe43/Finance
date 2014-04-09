@@ -1,4 +1,11 @@
 <div>
+	<form action="talk.php" method="post">
+        <div class="form-group">
+            <label for="message">Comment</label><br>
+		    <textarea cols="50" autofocus name="comment" class="form-control"></textarea><br><br>
+		    <input type="submit" value="Submit"/>
+		</div>
+	</form>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,11 +29,5 @@
             <? endforeach ?>
         </tbody>
     </table>
-    <form action="talk.php" method="post">
-        <div class="form-group">
-            <label for="message">Comment</label><br>
-		    <textarea cols="50" autofocus name="comment" class="form-control"></textarea><br><br>
-		    <input type="submit" value="Submit"/>
-		</div>
-	</form>
+    
 </div><br>

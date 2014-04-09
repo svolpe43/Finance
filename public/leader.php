@@ -46,6 +46,7 @@
         $rank++;
     }
     
+    $positions = record_sort($positions, "total", $reverse=true);
     
     //Render history
     render("leaderboard.php", ["positions" => $positions, "title" => "Leaderboard"]);

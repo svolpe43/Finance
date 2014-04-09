@@ -2,7 +2,6 @@
 <div>
   <p>Buy and sell stock from any company at live market price.
   Get real time quotes, discuss business strategy and see how you stand against your competitors.</p>
-  <p>"An investment in knowledge pays the best interest." &nbsp;&nbsp;&nbsp;<strong>&ndash;&nbsp;Benjain Franklin</strong></p>
 </div>
 <hr>
 <div>
@@ -21,7 +20,11 @@
             <?php foreach ($positions as $position): ?>
                 <tr>
                     <td><?= $position["name"] ?></td>
-                    <td><?= $position["symbol"] ?></td>
+                    <td>
+                        <form action="quote.php" method="post">
+                            <?= "<button type='submit' name='symbol' value='" .$position["symbol"]. "' class='btn btn-link'>".$position["symbol"]."</button>"?>
+                        </form>
+                    </td>
                     <td><?= $position["shares"] ?></td>
                     <td><?= number_format($position["buyprice"], 2, '.', ',') ?></td>
                     <td>$<?= number_format($position["currentprice"], 2, '.', ',') ?></td>

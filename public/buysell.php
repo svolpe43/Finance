@@ -73,7 +73,7 @@
         else if ($_POST["action"] == "buy")
         {
             //Calculate cash change
-            $cashchange = $stock["price"] * $amount;
+            $cashchange = $stock["price"] * (-$amount);
             
             //Check if the user has enough money for that.
             if ($amount > $userscash[0]["cash"])
@@ -86,7 +86,7 @@
                 $result1 = query("INSERT INTO portfolio (id, symbol, shares, buyprice) VALUES(?, ?, ?, ?) 
                     ON DUPLICATE KEY UPDATE shares = shares + ?, buyprice = ?", $_SESSION["id"], $stock["symbol"], $amount, $stock["price"], $amount, $stock["price"]);
                 
-                $result2 = query("UPDATE users SET cash = cash - ? WHERE id = ?", $cashchange, $_SESSION["id"]);
+                $result2 = query("UPDATE users SET cash = cash + ? WHERE id = ?", $cashchange, $_SESSION["id"]);
                 if ($result1 === false || $result2 === false)
                 {
                     apologize("Failed to change your portfolio.");
@@ -96,9 +96,9 @@
             //Update current cash
             $currentcash = $userscash[0]["cash"] - $cashchange;
         }
-        
+        //TODO Total change
         //Add the entry to the history.
-        $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, time) VALUES(?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)", $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $amount, $stock["price"]);
+        $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, total, time) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)", $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $amount, $stock["price"], $cashchange);
         if ($result4 === false)
         {
             apologize("Failed to enter into user history.");

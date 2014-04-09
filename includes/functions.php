@@ -2,10 +2,6 @@
 
     /**
      * functions.php
-     *
-     * Computer Science 50
-     * Problem Set 7
-     *
      * Helper functions.
      */
 
@@ -14,6 +10,28 @@
     /**
      * Apologizes to user with message.
      */
+     
+     function record_sort($records, $field, $reverse=false)
+    {
+        $hash = array();
+        
+        foreach($records as $record)
+        {
+            $hash[$record[$field]] = $record;
+        }
+        
+        ($reverse)? krsort($hash) : ksort($hash);
+        
+        $records = array();
+        
+        foreach($hash as $record)
+        {
+            $records []= $record;
+        }
+        
+        return $records;
+    }
+     
     function apologize($message)
     {
         render("apology.php", ["message" => $message]);
