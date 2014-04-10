@@ -6,7 +6,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         //Get user info
-        $rows = query("SELECT * FROM portfolio WHERE id = ?", $_POST["userid"]);
+        $rows = query("SELECT * FROM portfolio WHERE id = ?", $_POST["ref"]);
         if ($rows === false)
         {
             apologize("Couldn't load that users data.");

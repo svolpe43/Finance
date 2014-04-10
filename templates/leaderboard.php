@@ -13,7 +13,7 @@
         <tbody>
             <?php foreach ($positions as $position): ?>
                 <tr>
-                    <td><?= $position["rank"] ?></td>
+                    <td><?php echo "$rank"; $rank++;?></td>
                     <td>
                         <form action="userlook.php" method="post">
                             <?= "<button type='submit' name='ref' value='" . $position["userid"]. "' class='btn btn-link'>".$position["name"]."</button>"?>
