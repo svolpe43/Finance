@@ -44,7 +44,7 @@
                 $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $shares, $stock["price"], $cashchange);
         if ($result4 === false) apologize("Failed to enter into user history.");
 
-        redirect("/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
+        redirect("/public/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
         
      }
      
@@ -91,7 +91,7 @@
                 $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $shares, $stock["price"], $cashchange);
         if ($result4 === false) apologize("Failed to enter into user history.");
 
-        redirect("/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
+        redirect("/public/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
         
     }
     
