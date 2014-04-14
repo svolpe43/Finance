@@ -14,9 +14,9 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($positions as $position): ?>
+            <?php $rank = 1; foreach ($positions as $position): ?>
                 <tr>
-                    <td><?= $position["rank"] ?></td>
+                    <td><?= $rank ?></td>
                     <td>
                         <form action="userlook.php" method="post">
                             <?= "<button type='submit' name='userid' value='" . $position["userid"]. "' class='btn btn-link'>".$position["name"]."</button>"?>
@@ -30,7 +30,7 @@
                             <?= "<button type='submit' name='user' value='" . $position["userid"]. "' class='btn btn-link'>history</button>"?>
                         </form>
                     </td>
-                </tr>
+                </tr><?php $rank++; ?>
             <? endforeach ?>
         </tbody>
     </table>

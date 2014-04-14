@@ -10,7 +10,6 @@
     }
     
     $positions = [];
-    $rank = 1;
     
     //Cycle through each user
     foreach ($userinfos as $userinfo)
@@ -36,14 +35,12 @@
         
         //Set values to give to html
         $positions[] = [
-            "rank" => $rank,
             "name" => $userinfo["username"],
             "cash" => $userinfo["cash"],
             "stocktotal" => $stocktotal,
             "total" => $total,
             "userid" => $userinfo["id"]
         ];
-        $rank++;
     }
     
     $positions = record_sort($positions, "total", $reverse=true);

@@ -13,11 +13,17 @@
         }
         
         $sources = companydata($_POST["q"]);
-        
-        render("quotedisplay.php", [
+        if($sources == false)
+        {
+            apologize("Couldn't find that stock.");
+        }
+        else 
+        {
+            render("quotedisplay.php", [
             "title" => "Quote",
             "sources" => $sources
             ]);
+        }
     }
     else
     {

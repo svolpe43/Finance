@@ -112,9 +112,9 @@
         }
 
         //check if there is content
-        if ( count($response->getPods()) == 0 )
+        if ( count($response->getPods()) < 4 )
         {
-            apologize("Nothing was found for that company.");
+            return false;
         }
         
         //Create the company profile

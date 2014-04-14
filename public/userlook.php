@@ -38,13 +38,16 @@
             foreach($rows as $row)
             {
                 $sources = companydata($row["symbol"]);
-                $stock = lookup($row["symbol"]);
-                $companies[] = [
-                    "ref" => $count,
-                    "name" => $stock["name"],
-                    "data" => $sources
-                ];
-                $count++;
+                if ($sources != false)
+                {
+                    $stock = lookup($row["symbol"]);
+                    $companies[] = [
+                        "ref" => $count,
+                        "name" => $stock["name"],
+                        "data" => $sources
+                    ];
+                    $count++;
+                }
             }
         }
         else
