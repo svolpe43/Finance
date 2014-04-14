@@ -33,6 +33,6 @@
     }
     else
     {
-        render("forgotform.php", ["title" => "Forgot"]);
+        render("forgot_form.php", ["title" => "Forgot"]);
     }
 ?>

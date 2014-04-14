@@ -1,24 +1,3 @@
-<br>
-<div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Symbol</th>
-                <th>Price</th>
-                <th>Last Trade Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><?= $name ?></td>
-                <td><?= $symbol ?></td>
-                <td>$<?= $price ?></td>
-                <td width="200px"><?= $date.", ".$time?></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 <div class="btn-group">
     <form action="buysell.php" method="post">
         <input name="stock" type="text" placeholder="Stock" class="form-control" autofocus/>
@@ -27,3 +6,6 @@
         <button type="submit" name="action" value="sell" class="btn btn-default">Sell</button>
     </form>
 </div>
+<?= require("../templates/company.php"); ?>
+ 
+

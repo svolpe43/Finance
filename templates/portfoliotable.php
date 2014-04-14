@@ -1,37 +1,34 @@
 <div id="title">
-    <h4>History</h4>
+    <h4><?= $username ?>'s Portfolio</h4>
 </div>
 <hr>
 <div>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th colspan="2">Name</th>
+                <th>Name</th>
                 <th>Symbol</th>
-                <th>Action</th>
                 <th>Shares</th>
-                <th>Price Per Share</th>
-                <th>Total</th>
-                <th>Time</th>
+                <th>Bought Price</th>
+                <th>Current Price</th>
+                <th>Worth</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($positions as $position): ?>
                 <tr>
-                    <td><?= $position["order"] ?></td>
                     <td><?= $position["name"] ?></td>
                     <td>
                         <form action="quote.php" method="post">
                             <?= "<button type='submit' name='q' value='" .$position["symbol"]. "' class='btn btn-link'>".$position["symbol"]."</button>"?>
                         </form>
                     </td>
-                    <td><?= $position["action"] ?></td>
                     <td><?= $position["shares"] ?></td>
-                    <td>$<?= number_format($position["price"], 2, '.', ',') ?></td>
-                    <td>$<?= number_format($position["total"], 2, '.', ',') ?></td>
-                    <td><?= $position["time"] ?></td>
+                    <td><?= number_format($position["buyprice"], 2, '.', ',') ?></td>
+                    <td>$<?= number_format($position["currentprice"], 2, '.', ',') ?></td>
+                    <td>$<?= number_format($position["worth"], 2, '.', ',') ?></td>
                 </tr>
             <? endforeach ?>
         </tbody>
     </table>
-</div>
+</div><br>

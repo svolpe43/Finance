@@ -1,0 +1,14 @@
+<div id="title">
+    <h4>Make a transaction</h4>
+</div>
+<hr>
+<h4><small>You currently have</small> $<?= number_format($user[0]["cash"], 2, '.', ',') ?>.</h4>
+<br>
+<div>
+    <form action="transaction1.php" method="post">
+        <input name="company" type="text" placeholder="Stock" class="form-control" autofocus/>
+        <input name="shares" type="text" placeholder="Amount of shares" class="form-control"/>
+        <button type="submit" name="action" value="buy" class="btn btn-default">Buy</button>
+        <button type="submit" name="action" value="sell" class="btn btn-default">Sell</button>
+    </form><br>
+</div>

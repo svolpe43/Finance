@@ -42,7 +42,7 @@
     else
     {
         // else render form
-        render("loginhtml.php", ["title" => "Log In"]);
+        render("login_form.php", ["title" => "Log In"]);
     }
 
 ?>

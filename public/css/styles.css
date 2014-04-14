@@ -21,11 +21,21 @@
     width: auto;
    
 }
+#title h4
+{
+    text-align: left; !important;
+}
 
 #middle td
 {
     /* left-align tables' cells */
     text-align: left;
+}
+
+#tcenter td
+{
+    /* shrink bottom's font size */
+    text-align: center !important;
 }
 
 #bottom

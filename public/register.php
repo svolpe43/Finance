@@ -47,7 +47,7 @@
     else
     {
         // else render form
-        render("registerhtml.php", ["title" => "Register"]);
+        render("register_form.php", ["title" => "Register"]);
     }
 
 

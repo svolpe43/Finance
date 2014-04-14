@@ -3,18 +3,19 @@
     // configuration
     require("../includes/config.php"); 
     
+    //Handle history from leaderboard post
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        //If post get requested user history
         $rows = query("SELECT * FROM history WHERE id = ?", $_POST["user"]);
         if ($rows === false)
         {
             apologize("Couldn't load your data.");
         }
     }
+    
+    //Handle history for current user
     else
     {
-        //If link get current user history
         $rows = query("SELECT * FROM history WHERE id = ?", $_SESSION["id"]);
         if ($rows === false)
         {

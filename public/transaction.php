@@ -69,6 +69,8 @@
             
             //Update the current cash
             $currentcash = $userscash[0]["cash"] + $cashchange;
+            
+            $action = "Sell";
         }
         else if ($_POST["action"] == "buy")
         {
@@ -95,37 +97,26 @@
             
             //Update current cash
             $currentcash = $userscash[0]["cash"] - $cashchange;
+            $action = "Buy";
         }
-        //TODO Total change
+        
         //Add the entry to the history.
         $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, total, time) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)", $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $amount, $stock["price"], $cashchange);
         if ($result4 === false)
         {
             apologize("Failed to enter into user history.");
         }
-        
-        //Render the buy or sell done pages.
-        if ($_POST["action"] == "sell")
-        {
-            render("selldone.php", [
-                "amount" => $amount,
-                "name" => $stock["name"],
-                "price" => $stock["price"],
-                "cashchange" => $cashchange,
-                "cash" => $currentcash,
-                "title" => "Sold!"]);
-        }
-        else if ($_POST["action"] == "buy")
-        {
-            render("buydone.php", [
+ 
+        $transaction = [];
+        $transaction[] = [
                 "amount" => $amount, 
                 "name" => $stock["name"],
                 "price" => $stock["price"],
                 "cashchange" => $cashchange,
                 "cash" => $currentcash,
-                "title" => "Bought!"]);
-        }
-        //redirect("/");
+                ];
+
+        redirect("/index.php?action=".$action."&amount=".$amount."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
         
     }
 ?>

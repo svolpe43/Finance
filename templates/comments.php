@@ -1,11 +1,15 @@
+<br>
 <div>
 	<form action="talk.php" method="post">
         <div class="form-group">
-            <label for="message">Comment</label><br>
-		    <textarea cols="50" autofocus name="comment" class="form-control"></textarea><br><br>
-		    <input type="submit" value="Submit"/>
+		    <textarea cols="50" rows="1" autofocus name="comment" class="form-control"></textarea>
+		    <input class="btn btn-default" type="submit" value="Submit"/>
 		</div>
 	</form>
+	<div id="title">
+        <h4>Comments</h4>
+    </div>
+    <hr>
     <table class="table table-striped">
         <thead>
             <tr>

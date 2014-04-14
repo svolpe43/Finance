@@ -1,4 +1,7 @@
-<br>
+<div id="title">
+    <h4>Leader Board</h4>
+</div>
+<hr>
 <div>
     <table class="table table-striped">
         <thead>
@@ -13,10 +16,10 @@
         <tbody>
             <?php foreach ($positions as $position): ?>
                 <tr>
-                    <td><?php echo "$rank"; $rank++;?></td>
+                    <td><?= $position["rank"] ?></td>
                     <td>
                         <form action="userlook.php" method="post">
-                            <?= "<button type='submit' name='ref' value='" . $position["userid"]. "' class='btn btn-link'>".$position["name"]."</button>"?>
+                            <?= "<button type='submit' name='userid' value='" . $position["userid"]. "' class='btn btn-link'>".$position["name"]."</button>"?>
                         </form>
                     </td>
                     <td>$<?= number_format($position["cash"], 2, '.', ',') ?></td>

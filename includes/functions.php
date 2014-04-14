@@ -8,7 +8,132 @@
     require_once("constants.php");
 
     /**
-     * Apologizes to user with message.
+     * Makes the array of data for a company
+     */
+     function buy($company, $shares)
+     {
+        $action = "Buy";
+        
+        //look up the stock
+        $stock = lookup($company);
+        if ($stock === false) apologize("I don't think that symbol exists.");
+        
+        //Get the users cash
+        $userscash = query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
+        if ($userscash === false) apoogize("Could not get your cash.");
+        
+        $cashchange = -$stock["price"] * $shares;
+            
+        //Check cash restriction
+        if ($cashchange > $userscash[0]["cash"]) apologize("You don't have enough money for that.");
+        
+        //Add shares or inserts the new row for new company
+        else
+        {
+            $result1 = query("INSERT INTO portfolio (id, symbol, shares, buyprice) VALUES(?, ?, ?, ?) 
+                ON DUPLICATE KEY UPDATE shares = shares + ?, buyprice = ?", $_SESSION["id"], $stock["symbol"], $shares, $stock["price"], $shares, $stock["price"]);
+            if ($result1 === false) apologize("Failed to change your portfolio.");
+        }
+            
+        //Update current cash
+        $result2 = query("UPDATE users SET cash = cash + ? WHERE id = ?", $cashchange, $_SESSION["id"]);
+        if ($result2 === false) apologize("Failed to change your portfolio.");
+        
+        //Add the entry to the history.
+        $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, total, time) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $shares, $stock["price"], $cashchange);
+        if ($result4 === false) apologize("Failed to enter into user history.");
+
+        redirect("/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
+        
+     }
+     
+     /**
+     * Makes the array of data for a company
+     */
+    function sell($company, $shares)
+    {
+        $action = "Sell";
+        
+        $stock = lookup($_POST["company"]);
+        if ($stock === false) apologize("I don't think that symbol exists.");
+        
+        //Get the users cash.
+        $usercash = query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
+        $usershares = query("SELECT shares FROM portfolio WHERE id = ? AND symbol = ?", $_SESSION["id"], $stock["symbol"]);
+        if ($usercash === false || $usershares === false) apoogize("Could not get your cash.");
+        
+        //Calculate cash change
+        $cashchange = $stock["price"] * $shares;
+        
+        //Check shares restriction
+        if ($shares > $usershares[0]["shares"]) apologize("You don't have that many shares.");
+        //Delete row if he sold everything
+        else if ($shares == $usershares[0]["shares"])
+        {
+            $result1 = query("DELETE FROM portfolio WHERE id = ? AND symbol = ?", $_SESSION["id"], $stock["symbol"]);
+            if ($result1 === false) apologize("Couldn't sell you stock.");
+        }
+        //Change cash and shares
+        else
+        {
+            $result2 = query("UPDATE portfolio SET shares = shares - ? WHERE id = ? AND symbol = ?", $shares , $_SESSION["id"], $stock["symbol"]);
+            if ($result2 === false) apoogize("Could not make the query.");
+        }
+        
+        //dump($cashchange);
+        //Change user cash value TODO
+        $result3 = query("UPDATE users SET cash = cash + ? WHERE id = ?", $cashchange, $_SESSION["id"]);
+        if ($result3 === false) apoogize("Could not make the query.");
+        
+        //Add the entry to the history.
+        $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, total, time) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                $_SESSION["id"], $stock["name"], $stock["symbol"], $_POST["action"], $shares, $stock["price"], $cashchange);
+        if ($result4 === false) apologize("Failed to enter into user history.");
+
+        redirect("/index.php?action=".$action."&shares=".$shares."&name=".$stock['name']."&price=".$stock['price']."&change=".$cashchange);
+        
+    }
+    
+    function companydata($q)
+    {
+        $input = $q." stock";
+        $appID = 'XRP57G-QYEVTWGTLL';
+
+        // instantiate an engine object with your app id
+        $engine = new WolframAlphaEngine( $appID );
+        $response = $engine->getResults( $input );
+
+        // we can check if there was an error from the response object
+        if ( $response->isError() == true )
+        {
+            apologize("There was an error in the request");
+            die();
+        }
+
+        //check if there is content
+        if ( count($response->getPods()) == 0 )
+        {
+            apologize("Nothing was found for that company.");
+        }
+        
+        //Create the company profile
+        $sources = [];
+        foreach ( $response->getPods() as $pod )
+        {
+            foreach ($pod->getSubpods() as $subpod )
+            {
+                $sources[] = [
+                "img" => $subpod->image->attributes['src'],
+                "title" => $pod->attributes['title']
+                ];
+            }
+        }
+        return $sources;
+    }
+
+    /**
+     * Sorts an array by a certain index
      */
      
      function record_sort($records, $field, $reverse=false)
@@ -31,6 +156,10 @@
         
         return $records;
     }
+    
+    /**
+     * Apologizes to user with message.
+     */
      
     function apologize($message)
     {
