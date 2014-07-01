@@ -20,7 +20,7 @@
         
         //Get the users cash
         $userscash = query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
-        if ($userscash === false) apoogize("Could not get your cash.");
+        if ($userscash === false) apologize("Could not get your cash.");
         
         $cashchange = -$stock["price"] * $shares;
             
@@ -61,7 +61,7 @@
         //Get the users cash.
         $usercash = query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
         $usershares = query("SELECT shares FROM portfolio WHERE id = ? AND symbol = ?", $_SESSION["id"], $stock["symbol"]);
-        if ($usercash === false || $usershares === false) apoogize("Could not get your cash.");
+        if ($usercash === false || $usershares === false) apologize("Could not get your cash.");
         
         //Calculate cash change
         $cashchange = $stock["price"] * $shares;
@@ -78,13 +78,13 @@
         else
         {
             $result2 = query("UPDATE portfolio SET shares = shares - ? WHERE id = ? AND symbol = ?", $shares , $_SESSION["id"], $stock["symbol"]);
-            if ($result2 === false) apoogize("Could not make the query.");
+            if ($result2 === false) apologize("Could not make the query.");
         }
         
         //dump($cashchange);
         //Change user cash value TODO
         $result3 = query("UPDATE users SET cash = cash + ? WHERE id = ?", $cashchange, $_SESSION["id"]);
-        if ($result3 === false) apoogize("Could not make the query.");
+        if ($result3 === false) apologize("Could not make the query.");
         
         //Add the entry to the history.
         $result4 = query("INSERT INTO history (id, name, symbol, action, shares, price, total, time) VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)",
